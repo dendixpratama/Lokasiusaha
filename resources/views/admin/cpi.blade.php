@@ -1,0 +1,64 @@
+@extends('layout.v_template')
+@section('title','Penilaian | Lokasi Usaha')
+@section('mnpenilaian','active')
+
+@section('content')
+
+
+
+<div class="card">
+    <div class="card-body">
+
+        @if(session()->has('pesan'))
+        <div class="alert alert-success">
+            {{ session()->get('pesan')}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        @endif
+        <div class="table-responsive">
+            <table class="table table-bordered text-dark" id="dataTable" width="100%" cellspacing="0">
+                <thead class="table-primary">
+                    <tr>
+                        <th>#No</th>
+                        <th>Penilaian</th>
+                        <th>Lokasi</th>
+                        <th>Kriteria</th>
+                        <th>Catatan</th>
+                        <th class="text-center">Menu</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse ($details as $detail)
+                    <tr>
+                        <td class="text-center">{{$loop->iteration}}</td>
+                        <td>{{$detail->id_penilaian}}</td>
+                        <td>{{$detail->id_lokasi}}</td>
+                        <td>Kriteria 1: {{$detail->kriteria1}}, Kriteria 2: {{$detail->kriteria2}}, Kriteria 3: {{$detail->kriteria3}}, Kriteria 4: {{$detail->kriteria4}}<br>
+                            Kriteria 5: {{$detail->kriteria5}}, Kriteria 6: {{$detail->kriteria6}}, Kriteria 7: {{$detail->kriteria7}}</td>
+                        <td>{{$detail->catatan}}</td>
+                        <td class="text-center">
+                            <div>
+                                <a href="#edit{{ $detail->id_detail }}" data-toggle="modal" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+
+                                <a href="#del{{ $detail->id_detail }}" data-toggle="modal" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                                @include('admin.detail.modal')
+                            </div>
+
+                        </td>
+                    </tr>
+                    @empty
+                    <td colspan="8" class="text-center">Tidak ada data...</td>
+                    @endforelse
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- End of Content Wrapper -->
+@endsection
